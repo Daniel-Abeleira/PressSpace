@@ -9,10 +9,12 @@ public class Player : MonoBehaviour {
     public GameObject bulletPrefab;
     public Transform shotPoint;
     public int lifes = 1;
+    public AudioSource aS;
 
 	// Use this for initialization
 	void Start () {
         lifes = 1;
+        aS = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
 	}
 	
@@ -20,6 +22,10 @@ public class Player : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (!aS.isPlaying)
+            {
+                aS.Play();
+            }
             rb.velocity = Vector2.up * jumpForce;
             Instantiate(bulletPrefab, shotPoint.transform.position, Quaternion.identity);
         }
